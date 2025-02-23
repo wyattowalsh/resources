@@ -9,7 +9,18 @@
       "summary": "Next.js documentation",
       "image": "https://nextjs.org/static/favicon/favicon.ico",
       "tags": ["documentation", "nextjs"],
-      "relationships": []
+      "relationships": ["Tailwind CSS Documentation"]
+    },
+    {
+      "title": "Tailwind CSS Documentation",
+      "description": "Comprehensive guide and documentation for Tailwind CSS framework.",
+      "url": "https://tailwindcss.com/docs",
+      "notes": "Useful for learning Tailwind CSS",
+      "date-last-accessed": "2023-10-01",
+      "summary": "Tailwind CSS documentation",
+      "image": "https://tailwindcss.com/favicon.ico",
+      "tags": ["documentation", "tailwindcss"],
+      "relationships": ["Next.js Documentation"]
     }
   ]
 }
