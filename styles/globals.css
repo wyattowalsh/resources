@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for GitHubStarGraph and GitHubStarCount components */
+.github-star-graph {
+  margin-top: 1rem;
+}
+
+.github-star-count {
+  margin-top: 1rem;
+}
+
+/* Consistent color scheme and typography */
+body {
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #0070f3;
+}
+
+a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #0070f3;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #005bb5;
+}
+
+/* Custom styles for ResourceForm component */
+.resource-form {
+  margin-top: 2rem;
+}
+
+.resource-form input,
+.resource-form select,
+.resource-form button {
+  margin-bottom: 1rem;
+}
+
+/* Custom styles for StarHistoryGraph component */
+.star-history-graph {
+  margin-top: 2rem;
+}
+
+/* Custom styles for StarCountDisplay component */
+.star-count-display {
+  margin-top: 2rem;
+}
+
+/* Custom styles for new components and pages */
+.container {
+  padding: 2rem;
+}
+
+.grid {
+  gap: 1.5rem;
+}
+
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Custom styles for AccessibilityEnhancements component */
+.accessibility-enhancements {
+  margin-top: 2rem;
+}
+
+/* Custom styles for AddResourceForm component */
+.add-resource-form {
+  margin-top: 2rem;
+}
+
+/* Custom styles for FilterOptions component */
+.filter-options {
+  margin-top: 2rem;
+}
+
+/* Custom styles for Footer component */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+/* Custom styles for GitHubStarCount component */
+.github-star-count {
+  margin-top: 2rem;
+}
+
+/* Custom styles for GitHubStarGraph component */
+.github-star-graph {
+  margin-top: 2rem;
+}
+
+/* Custom styles for Header component */
+.header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+/* Custom styles for InfiniteScroll component */
+.infinite-scroll {
+  margin-top: 2rem;
+}
+
+/* Custom styles for Pagination component */
+.pagination {
+  margin-top: 2rem;
+}
+
+/* Custom styles for PerformanceOptimizations component */
+.performance-optimizations {
+  margin-top: 2rem;
+}
+
+/* Custom styles for ResourceCard component */
+.resource-card {
+  margin-top: 2rem;
+}
+
+/* Custom styles for ResourceForm component */
+.resource-form {
+  margin-top: 2rem;
+}
+
+/* Custom styles for SearchBar component */
+.search-bar {
+  margin-top: 2rem;
+}

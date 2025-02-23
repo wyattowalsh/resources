@@ -1,0 +1,15 @@
+{
+  "resources": [
+    {
+      "title": "Next.js Documentation",
+      "description": "Comprehensive guide and documentation for Next.js framework.",
+      "url": "https://nextjs.org/docs",
+      "notes": "Useful for learning Next.js",
+      "date-last-accessed": "2023-10-01",
+      "summary": "Next.js documentation",
+      "image": "https://nextjs.org/static/favicon/favicon.ico",
+      "tags": ["documentation", "nextjs"],
+      "relationships": []
+    }
+  ]
+}

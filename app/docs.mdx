@@ -1,0 +1,118 @@
+import { Fumadocs } from 'fumadocs';
+
+# Development Documentation
+
+Welcome to the development documentation for the Resources Collection App. This document provides a comprehensive guide to understanding, setting up, and contributing to the project.
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Project Structure](#project-structure)
+3. [Getting Started](#getting-started)
+4. [Components](#components)
+5. [Data Schema](#data-schema)
+6. [GitHub Actions](#github-actions)
+7. [Styling](#styling)
+8. [Contributing](#contributing)
+9. [License](#license)
+
+## Introduction
+
+The Resources Collection App is a beautifully stylized collection of resources. It includes a master resource data file, a script to generate the README, and a Next.js 15 static site for GitHub Pages to present the information in addition to the README.
+
+## Project Structure
+
+The project is organized as follows:
+
+- `data/`: Contains the resource and star data JSON files.
+- `components/`: Contains the React components used in the app.
+- `pages/`: Contains the Next.js pages.
+- `styles/`: Contains the global styles for the app.
+- `scripts/`: Contains the Python scripts for GitHub Actions.
+- `.github/workflows/`: Contains the GitHub Actions workflows.
+- `pyproject.toml`: Configuration file for Python dependencies.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 14.x or later
+- Python 3.13
+- Git
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/wyattowalsh/resources.git
+   cd resources
+   ```
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Install the Python dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Running the App
+
+To run the app locally, use the following command:
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:3000`.
+
+## Components
+
+### ResourceForm
+
+The `ResourceForm` component is used to add new resources. It includes input fields for various resource attributes such as `notes`, `date-last-accessed`, `summary`, `image`, `tags`, `url`, and `relationships`. The form also allows for JSON upload and includes enums and pickers for categorical fields.
+
+### StarHistoryGraph
+
+The `StarHistoryGraph` component displays a beautiful GitHub star history graph within a drop-down. It uses Framer Motion for animations and transitions and fetches star-related data from the flat file `star-data.json`.
+
+### StarCountDisplay
+
+The `StarCountDisplay` component displays the current GitHub star count. It fetches star-related data from the flat file `star-data.json` and updates the star count nightly via a GitHub Action.
+
+## Data Schema
+
+### Resource Schema
+
+The resource schema is defined in `data/resources-schema.json`. It includes fields such as `notes`, `date-last-accessed`, `summary`, `image`, `tags`, `url`, and `relationships`. The schema is flexible and allows for new tags to be added.
+
+### Star Data Schema
+
+The star data schema is defined in `data/star-data.json`. It includes metadata and star data for multiple projects. The schema is validated using Pydantic in the Python scripts.
+
+## GitHub Actions
+
+The project includes a GitHub Action workflow to update the star data nightly. The workflow is defined in `.github/workflows/update-star-data.yml` and uses Python to fetch star data from the GitHub GraphQL API.
+
+## Styling
+
+The app uses Tailwind CSS for styling and Shadcn-UI for UI components. The styles are consistent with the color scheme and design principles to ensure a visually appealing interface.
+
+## Contributing
+
+We welcome contributions to the project. Please follow the guidelines below:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Make your changes and commit them with a descriptive message.
+4. Push your changes to your fork.
+5. Create a pull request to the main repository.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
