@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Resources",
+  "type": "object",
+  "properties": {
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "The title of the resource"
+          },
+          "description": {
+            "type": "string",
+            "description": "A brief description of the resource"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of the resource"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about the resource"
+          },
+          "date-last-accessed": {
+            "type": "string",
+            "format": "date",
+            "description": "The date when the resource was last accessed"
+          },
+          "summary": {
+            "type": "string",
+            "description": "A summary of the resource"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "The URL of an image representing the resource"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["documentation", "nextjs", "tailwindcss", "framer-motion", "shadcn-ui", "react", "javascript", "tutorial"]
+            },
+            "description": "Tags associated with the resource. New tags can be added by appending to the enum list."
+          },
+          "relationships": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Relationships to other resources"
+            },
+            "description": "An array of relationships to other resources"
+          }
+        },
+        "required": ["title", "description", "url"]
+      }
+    }
+  },
+  "required": ["resources"]
+}
