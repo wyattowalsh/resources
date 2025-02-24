@@ -54,6 +54,20 @@
               "description": "Relationships to other resources"
             },
             "description": "An array of relationships to other resources"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date",
+            "description": "The date when the resource was created"
+          },
+          "lastUpdatedDate": {
+            "type": "string",
+            "format": "date",
+            "description": "The date when the resource was last updated"
+          },
+          "category": {
+            "type": "string",
+            "description": "The category of the resource"
           }
         },
         "required": ["title", "description", "url"]

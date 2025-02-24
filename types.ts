@@ -11,6 +11,9 @@ export interface Resource {
   repo?: string;
   tags?: string[];
   relationships?: string[];
+  creationDate?: string;
+  lastUpdatedDate?: string;
+} {
 }
 
 export interface ReviewType {

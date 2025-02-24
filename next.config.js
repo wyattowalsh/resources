@@ -11,6 +11,9 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
+  resolve: {
+    preferRelative: true,
+  },
 }
 
 module.exports = nextConfig

@@ -9,7 +9,10 @@
       "summary": "Next.js documentation",
       "image": "https://nextjs.org/static/favicon/favicon.ico",
       "tags": ["documentation", "nextjs"],
-      "relationships": ["Tailwind CSS Documentation"]
+      "relationships": ["Tailwind CSS Documentation"],
+      "creationDate": "2023-01-01",
+      "lastUpdatedDate": "2023-10-01",
+      "category": "documentation"
     },
     {
       "title": "Tailwind CSS Documentation",
@@ -20,7 +23,10 @@
       "summary": "Tailwind CSS documentation",
       "image": "https://tailwindcss.com/favicon.ico",
       "tags": ["documentation", "tailwindcss"],
-      "relationships": ["Next.js Documentation"]
+      "relationships": ["Next.js Documentation"],
+      "creationDate": "2023-01-01",
+      "lastUpdatedDate": "2023-10-01",
+      "category": "documentation"
     }
   ]
 }

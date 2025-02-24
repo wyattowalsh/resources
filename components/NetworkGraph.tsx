@@ -1,6 +1,7 @@
 import { FC, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import { ComponentBaseProps } from '../types';
+import { Chart, LineController, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js';
 
 interface NetworkNode {
   id: string;
@@ -8,6 +9,16 @@ interface NetworkNode {
   y?: number;
   fx?: number | null;
   fy?: number | null;
+  metadata?: {
+    creationDate?: string;
+    lastUpdatedDate?: string;
+    description?: string;
+  };
+  category?: string;
+  imageUrl?: string;
+}
+
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale); {
 }
 
 interface NetworkLink {
@@ -22,9 +33,11 @@ interface NetworkData {
 
 interface NetworkGraphProps extends ComponentBaseProps {
   data: NetworkData;
+  filterCriteria?: (node: NetworkNode) => boolean;
+} {
 }
 
-const NetworkGraph: FC<NetworkGraphProps> = ({ data, className }) => {
+const NetworkGraph: FC<NetworkGraphProps> = ({ data, filterCriteria, className }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -36,40 +49,72 @@ const NetworkGraph: FC<NetworkGraphProps> = ({ data, className }) => {
     const width = 800;
     const height = 600;
 
-    const simulation = d3.forceSimulation<NetworkNode>(data.nodes)
-      .force('link', d3.forceLink<NetworkNode, NetworkLink>(data.links).id(d => d.id))
+    const filteredNodes = filterCriteria ? data.nodes.filter(filterCriteria) : data.nodes;
+    const filteredLinks = data.links.filter(link => 
+      filteredNodes.some(node => node.id === link.source) && 
+      filteredNodes.some(node => node.id === link.target)
+    );
+
+    const simulation = d3.forceSimulation<NetworkNode>(filteredNodes)
+      .force('link', d3.forceLink<NetworkNode, NetworkLink>(filteredLinks).id(d => d.id).strength(1))
       .force('charge', d3.forceManyBody().strength(-200))
       .force('center', d3.forceCenter(width / 2, height / 2));
 
     const link = svg.append('g')
       .attr('class', 'links')
       .selectAll('line')
-      .data(data.links)
+      .data(filteredLinks)
       .enter().append('line')
       .attr('stroke-width', 2)
-      .attr('stroke', '#999');
+      .attr('stroke', '#999')
+      .attr('class', 'link')
+      .on('mouseover', function(event, d) {
+        d3.select(this).attr('stroke', '#555');
+        d3.select('#tooltip')
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 5}px`)
+          .style('display', 'inline-block')
+          .html(`Source: ${d.source}<br>Target: ${d.target}`);
+      })
+      .on('mouseout', function() {
+        d3.select(this).attr('stroke', '#999');
+        d3.select('#tooltip').style('display', 'none');
+      });
 
     const node = svg.append('g')
       .attr('class', 'nodes')
       .selectAll('circle')
-      .data(data.nodes)
+      .data(filteredNodes)
       .enter().append('circle')
       .attr('r', 10)
-      .attr('fill', '#69b3a2')
+      .attr('fill', d => d.category ? colorScale(d.category) : '#69b3a2')
+      .attr('class', 'node')
       .call(d3.drag<SVGCircleElement, NetworkNode>()
         .on('start', dragstarted)
         .on('drag', dragged)
-        .on('end', dragended));
+        .on('end', dragended))
+      .on('mouseover', function(event, d) {
+        d3.select(this).attr('stroke', '#555');
+        d3.select('#tooltip')
+          .style('left', `${event.pageX + 5}px`)
+          .style('top', `${event.pageY + 5}px`)
+          .style('display', 'inline-block')
+          .html(`ID: ${d.id}<br>Description: ${d.metadata?.description}<br>Creation Date: ${d.metadata?.creationDate}<br>Last Updated: ${d.metadata?.lastUpdatedDate}`);
+      })
+      .on('mouseout', function() {
+        d3.select(this).attr('stroke', null);
+        d3.select('#tooltip').style('display', 'none');
+      });
 
     node.append('title')
       .text(d => d.id);
 
     simulation
-      .nodes(data.nodes)
+      .nodes(filteredNodes)
       .on('tick', ticked);
 
     simulation.force<d3.ForceLink<NetworkNode, NetworkLink>>('link')
-      ?.links(data.links);
+      ?.links(filteredLinks);
 
     function ticked() {
       link
@@ -108,7 +153,40 @@ const NetworkGraph: FC<NetworkGraphProps> = ({ data, className }) => {
     function zoomed(event: d3.D3ZoomEvent<SVGSVGElement, unknown>) {
       svg.attr('transform', event.transform.toString());
     }
-  }, [data]);
+
+    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+    const legend = svg.append('g')
+      .attr('class', 'legend')
+      .attr('transform', 'translate(20,20)');
+
+    const categories = Array.from(new Set(filteredNodes.map(d => d.category).filter(Boolean)));
+
+    categories.forEach((category, i) => {
+      legend.append('rect')
+        .attr('x', 0)
+        .attr('y', i * 20)
+        .attr('width', 10)
+        .attr('height', 10)
+        .attr('fill', colorScale(category));
+
+      legend.append('text')
+        .attr('x', 20)
+        .attr('y', i * 20 + 10)
+        .text(category);
+    });
+
+    const tooltip = d3.select('body').append('div')
+      .attr('id', 'tooltip')
+      .attr('class', 'tooltip')
+      .style('position', 'absolute')
+      .style('display', 'none')
+      .style('background', 'rgba(0, 0, 0, 0.7)')
+      .style('color', '#fff')
+      .style('padding', '5px')
+      .style('border-radius', '5px')
+      .style('pointer-events', 'none');
+  }, [data, filterCriteria]);
 
   return (
     <svg 

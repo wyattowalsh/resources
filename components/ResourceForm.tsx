@@ -1,11 +1,15 @@
+'use client';
 import { FC, useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { Input, Button, Form, FormField, FormItem, FormLabel, FormControl, FormMessage, Select, SelectItem, Textarea } from 'shadcn-ui';
 import { motion } from 'framer-motion';
 import { Plus, Upload, Link, Image as ImageIcon, Hash, Calendar, FileText, GitFork } from 'lucide-react';
 import { z } from 'zod';
 import { Resource, ComponentBaseProps } from '../types';
+import { Chart, LineController, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js';
 import '../styles/globals.css';
 import '../styles/custom.css';
+
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale);
 
 const resourceSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -17,9 +21,23 @@ const resourceSchema = z.object({
   image: z.string().url('Invalid URL format').optional(),
   tag: z.string().min(1, 'Tag is required'),
   relationships: z.array(z.string()).optional(),
+  creationDate: z.string().optional(),
+  lastUpdatedDate: z.string().optional(),
+  category: z.string().optional(),
 });
 
 type ResourceFormSchema = z.infer<typeof resourceSchema>;
+
+useEffect(() => {
+  if (starData.length > 0) {
+    const ctx = document.getElementById('starGraph') as HTMLCanvasElement;
+    new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: chartOptions,
+    });
+  }
+}, [starData]);
 
 interface ResourceFormProps extends ComponentBaseProps {
   onAddResource: (resource: Resource) => void;
@@ -41,6 +59,9 @@ const ResourceForm: FC<ResourceFormProps> = ({ onAddResource, tags, initialData,
     summary: initialData?.summary || '',
     image: initialData?.image || '',
     tag: initialData?.tag || '',
+    creationDate: initialData?.creationDate || '',
+    lastUpdatedDate: initialData?.lastUpdatedDate || '',
+    category: initialData?.category || '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [newTag, setNewTag] = useState<string>('');
@@ -82,6 +103,9 @@ const ResourceForm: FC<ResourceFormProps> = ({ onAddResource, tags, initialData,
             summary: jsonData.summary || '',
             image: jsonData.image || '',
             tag: jsonData.tag || '',
+            creationDate: jsonData.creationDate || '',
+            lastUpdatedDate: jsonData.lastUpdatedDate || '',
+            category: jsonData.category || '',
           });
           setRelationships(jsonData.relationships || []);
         } catch (error) {
@@ -123,6 +147,9 @@ const ResourceForm: FC<ResourceFormProps> = ({ onAddResource, tags, initialData,
       summary: '',
       image: '',
       tag: '',
+      creationDate: '',
+      lastUpdatedDate: '',
+      category: '',
     });
     setNewTag('');
     setRelationships([]);
@@ -145,6 +172,17 @@ const ResourceForm: FC<ResourceFormProps> = ({ onAddResource, tags, initialData,
     // Call the sync function on component mount
     syncTagEnums();
   }, []);
+
+  useEffect(() => {
+    if (starData.length > 0) {
+      const ctx = document.getElementById('starGraph') as HTMLCanvasElement;
+      new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: chartOptions,
+      });
+    }
+  }, [starData]);
 
   return (
     <motion.div
@@ -246,6 +284,63 @@ const ResourceForm: FC<ResourceFormProps> = ({ onAddResource, tags, initialData,
                   className="h-11 pl-10 border-2 focus:ring-2 ring-offset-2 ring-primary/20"
                 />
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+              </div>
+            </FormControl>
+          </FormItem>
+
+          <FormItem>
+            <FormLabel htmlFor="creationDate" className="text-base font-semibold text-text-primary">
+              Creation Date
+            </FormLabel>
+            <FormControl>
+              <div className="relative">
+                <Input
+                  id="creationDate"
+                  name="creationDate"
+                  type="date"
+                  value={formData.creationDate}
+                  onChange={handleInputChange}
+                  className="h-11 pl-10 border-2 focus:ring-2 ring-offset-2 ring-primary/20"
+                />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+              </div>
+            </FormControl>
+          </FormItem>
+
+          <FormItem>
+            <FormLabel htmlFor="lastUpdatedDate" className="text-base font-semibold text-text-primary">
+              Last Updated Date
+            </FormLabel>
+            <FormControl>
+              <div className="relative">
+                <Input
+                  id="lastUpdatedDate"
+                  name="lastUpdatedDate"
+                  type="date"
+                  value={formData.lastUpdatedDate}
+                  onChange={handleInputChange}
+                  className="h-11 pl-10 border-2 focus:ring-2 ring-offset-2 ring-primary/20"
+                />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+              </div>
+            </FormControl>
+          </FormItem>
+
+          <FormItem>
+            <FormLabel htmlFor="category" className="text-base font-semibold text-text-primary">
+              Category
+            </FormLabel>
+            <FormControl>
+              <div className="relative">
+                <Input
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  className="h-11 pl-10 border-2 focus:ring-2 ring-offset-2 ring-primary/20"
+                  placeholder="Category..."
+                />
+                <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
               </div>
             </FormControl>
           </FormItem>
