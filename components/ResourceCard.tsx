@@ -59,7 +59,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
               aria-label={isBookmarked ? "Remove bookmark" : "Add bookmark"}
             >
               <Bookmark
-                className={`w-5 h-5 ${isBookmarked ? 'fill-current text-primary' : 'text-gray-400'}`}
+                className={`w-5 h-5 ${isBookmarked ? 'fill-current text-pantone-classic-blue' : 'text-gray-400'}`}
               />
             </button>
           </div>
@@ -68,7 +68,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 text-xs rounded-full bg-secondary/10 text-secondary"
+                  className="px-2 py-1 text-xs rounded-full bg-pantone-serenity/10 text-pantone-serenity"
                 >
                   {tag}
                 </span>
@@ -86,13 +86,14 @@ const ResourceCard: FC<ResourceCardProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="button inline-flex items-center gap-2 text-sm"
+              style={{ backgroundColor: 'var(--pantone-classic-blue)' }}
             >
               <Share2 className="w-4 h-4" />
               Visit Resource
             </a>
             
             {rating > 0 && (
-              <div className="flex items-center gap-1 text-accent">
+              <div className="flex items-center gap-1 text-pantone-illuminating">
                 <Star className="w-4 h-4 fill-current" />
                 <span className="text-sm font-medium">{rating}</span>
               </div>
@@ -109,7 +110,7 @@ const ResourceCard: FC<ResourceCardProps> = ({
           <div className="flex items-center gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
             <button
               onClick={() => handleRatingChange(rating + 1)}
-              className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-primary"
+              className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-pantone-classic-blue"
             >
               <ThumbsUp className="w-4 h-4" />
               Rate

@@ -193,7 +193,7 @@ const NetworkGraph: FC<NetworkGraphProps> = ({ data, filterCriteria, className }
       ref={svgRef} 
       width="800" 
       height="600" 
-      className={className}
+      className={`network-graph ${className}`}
     ></svg>
   );
 };

@@ -5,16 +5,16 @@
 @layer base {
   :root {
     /* Existing variables */
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --secondary: #6366f1;
-    --accent: #f59e0b;
-    --background: #f8fafc;
-    --surface: #ffffff;
-    --text-primary: #1e293b;
-    --text-secondary: #475569;
-    --success: #22c55e;
-    --error: #ef4444;
+    --primary: var(--pantone-classic-blue);
+    --primary-dark: var(--pantone-classic-blue);
+    --secondary: var(--pantone-serenity);
+    --accent: var(--pantone-living-coral);
+    --background: var(--pantone-ultimate-gray);
+    --surface: var(--pantone-ultimate-gray);
+    --text-primary: var(--pantone-classic-blue);
+    --text-secondary: var(--pantone-serenity);
+    --success: var(--pantone-greenery);
+    --error: var(--pantone-marsala);
 
     /* shadcn-ui required variables */
     --background: 0 0% 100%;
@@ -37,6 +37,18 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
+
+    /* Pantone color variables */
+    --pantone-classic-blue: #0f4c81;
+    --pantone-living-coral: #ff6f61;
+    --pantone-ultimate-gray: #939597;
+    --pantone-illuminating: #f5df4d;
+    --pantone-greenery: #88b04b;
+    --pantone-serenity: #91a8d0;
+    --pantone-rose-quartz: #f7cac9;
+    --pantone-ultra-violet: #5f4b8b;
+    --pantone-marsala: #964f4c;
+    --pantone-radiant-orchid: #b565a7;
   }
 
   .dark {
@@ -59,6 +71,18 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
+
+    /* Pantone color variables for dark mode */
+    --pantone-classic-blue: #0a3a5e;
+    --pantone-living-coral: #cc5a4d;
+    --pantone-ultimate-gray: #6e6f70;
+    --pantone-illuminating: #d4c43b;
+    --pantone-greenery: #6b8a3a;
+    --pantone-serenity: #6e8aa3;
+    --pantone-rose-quartz: #d1a3a4;
+    --pantone-ultra-violet: #4a3a6b;
+    --pantone-marsala: #723b3a;
+    --pantone-radiant-orchid: #8a4a7a;
   }
 }
 
@@ -81,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2.5rem;
-  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  background: linear-gradient(45deg, var(--pantone-classic-blue), var(--pantone-living-coral));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 2rem;
@@ -89,17 +113,17 @@ h1 {
 
 /* Interactive elements */
 a {
-  color: var(--primary);
+  color: var(--pantone-classic-blue);
   text-decoration: none;
   transition: all 0.2s ease-in-out;
 }
 
 a:hover {
-  color: var(--primary-dark);
+  color: var(--pantone-living-coral);
 }
 
 button, .button {
-  background-color: var(--primary);
+  background-color: var(--pantone-classic-blue);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
@@ -111,7 +135,7 @@ button, .button {
 }
 
 button:hover, .button:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--pantone-living-coral);
   transform: translateY(-1px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -292,8 +316,8 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: var(--pantone-classic-blue);
+  box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1);
 }
 
 /* Accessibility improvements */
