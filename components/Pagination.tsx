@@ -1,5 +1,5 @@
 import { FC, useState, useMemo } from 'react';
-import { Button } from 'shadcn-ui';
+import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ComponentBaseProps } from '../types';

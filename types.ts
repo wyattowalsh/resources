@@ -8,12 +8,11 @@ export interface Resource {
   summary?: string;
   image?: string;
   tag?: string;
-  repo?: string;
   tags?: string[];
-  relationships?: string[];
+  repo?: string;
   creationDate?: string;
   lastUpdatedDate?: string;
-} {
+  relationships?: string[];
 }
 
 export interface ReviewType {
@@ -28,6 +27,27 @@ export interface RecommendationType {
   title: string;
   url: string;
   similarity: number;
+}
+
+export interface NetworkNode {
+  id: string;
+  metadata?: {
+    creationDate?: string;
+    lastUpdatedDate?: string;
+    description?: string;
+  };
+  category?: string;
+  imageUrl?: string;
+}
+
+export interface NetworkLink {
+  source: string;
+  target: string;
+}
+
+export interface NetworkData {
+  nodes: NetworkNode[];
+  links: NetworkLink[];
 }
 
 export interface ComponentBaseProps {

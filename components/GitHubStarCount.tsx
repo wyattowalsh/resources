@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from 'shadcn-ui';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { ComponentBaseProps } from '../types';
 import '../styles/globals.css';

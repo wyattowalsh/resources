@@ -1,5 +1,10 @@
 import { FC, useState, useEffect } from 'react';
-import { Dropdown, DropdownMenu, DropdownItem, DropdownTrigger } from 'shadcn-ui';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { motion } from 'framer-motion';
 import { ComponentBaseProps } from '../types';
 import 'chart.js/auto';
@@ -39,6 +44,17 @@ const GitHubStarGraph: FC<GitHubStarGraphProps> = ({ repo, onDataLoad, className
   useEffect(() => {
     fetchStarHistory(repo);
   }, [repo]);
+
+  useEffect(() => {
+    if (starData.length > 0) {
+      const ctx = document.getElementById('starGraph') as HTMLCanvasElement;
+      new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: chartOptions,
+      });
+    }
+  }, [starData]);
 
   const fetchStarHistory = async (repo: string): Promise<void> => {
     try {
@@ -142,32 +158,21 @@ const GitHubStarGraph: FC<GitHubStarGraphProps> = ({ repo, onDataLoad, className
           {error}
         </div>
       ) : (
-        <Dropdown open={isOpen} onOpenChange={setIsOpen}>
-          <DropdownTrigger className="w-full">
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+          <DropdownMenuTrigger className="w-full">
             <canvas id="starGraph"></canvas>
-          </DropdownTrigger>
-          <DropdownMenu>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
             {starData.map((data, index) => (
-              <DropdownItem key={index}>
+              <DropdownMenuItem key={index}>
                 {data.date}: {data.count} stars
-              </DropdownItem>
+              </DropdownMenuItem>
             ))}
-          </DropdownMenu>
-        </Dropdown>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
     </motion.div>
   );
 };
 
 export default GitHubStarGraph;
-
-useEffect(() => {
-  if (starData.length > 0) {
-    const ctx = document.getElementById('starGraph') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'line',
-      data: chartData,
-      options: chartOptions,
-    });
-  }
-}, [starData]);

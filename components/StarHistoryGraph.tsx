@@ -1,15 +1,31 @@
+import { FC } from 'react';
 import { useState, useEffect } from 'react';
-import { Dropdown, DropdownMenu, DropdownItem, DropdownTrigger } from 'shadcn-ui';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import { Line } from 'react-chartjs-2';
 import { motion } from 'framer-motion';
+import { ComponentBaseProps } from '../types';
 import 'chart.js/auto';
 import '../styles/globals.css';
 import '../styles/custom.css';
 import starData from '../data/star-data.json';
 
-const StarHistoryGraph = ({ repo }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [starHistory, setStarHistory] = useState([]);
+interface StarHistoryGraphProps extends ComponentBaseProps {
+  repo: string;
+}
+
+interface StarHistory {
+  date: string;
+  stars: number;
+}
+
+const StarHistoryGraph: FC<StarHistoryGraphProps> = ({ repo, className }) => {
+  const [open, setOpen] = useState(false);
+  const [starHistory, setStarHistory] = useState<StarHistory[]>([]);
 
   useEffect(() => {
     const project = starData.projects.find((project) => project.repo_name === repo);
@@ -32,30 +48,37 @@ const StarHistoryGraph = ({ repo }) => {
   };
 
   return (
-    <div className="star-history-graph">
-      <Dropdown isOpen={isOpen} onOpenChange={setIsOpen}>
-        <DropdownTrigger>
+    <div className={`star-history-graph ${className ?? ''}`}>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger asChild>
           <motion.button
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="w-full p-2 rounded bg-primary text-primary-foreground hover:bg-primary/90"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             View Star History
           </motion.button>
-        </DropdownTrigger>
-        <DropdownMenu>
-          <DropdownItem>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-[300px]">
+          <DropdownMenuItem asChild>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="p-4"
+              className="p-4 w-full"
             >
-              <Line data={chartData} />
+              <Line data={chartData} options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top' as const,
+                  },
+                },
+              }} />
             </motion.div>
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };

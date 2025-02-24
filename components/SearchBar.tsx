@@ -1,5 +1,5 @@
 import { FC, useState, ChangeEvent } from 'react';
-import { Input } from 'shadcn-ui';
+import { Input } from '@/components/ui/input';
 import { motion } from 'framer-motion';
 import { ComponentBaseProps } from '../types';
 import '../styles/globals.css';

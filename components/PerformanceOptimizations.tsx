@@ -1,3 +1,5 @@
+"use client"
+
 import { FC, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ComponentBaseProps } from '../types';

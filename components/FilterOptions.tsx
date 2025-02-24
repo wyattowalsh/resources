@@ -1,77 +1,37 @@
-import { FC, useState, ChangeEvent } from 'react';
-import { Select, SelectItem } from 'shadcn-ui';
-import { motion } from 'framer-motion';
+'use client';
+
+import { FC } from 'react';
 import { ComponentBaseProps } from '../types';
-import '../styles/globals.css';
-import '../styles/custom.css';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 
 interface FilterOptionsProps extends ComponentBaseProps {
-  onFilter: (tag: string, sort: string) => void;
-  availableTags?: string[];
-  sortOptions?: Array<{
-    value: string;
-    label: string;
-  }>;
+  initialTags: string[];
+  onFilterChange: (tag: string) => void;
 }
 
-const defaultSortOptions = [
-  { value: '', label: 'Sort By' },
-  { value: 'date', label: 'Date' },
-  { value: 'popularity', label: 'Popularity' },
-  { value: 'rating', label: 'Rating' }
-];
-
 const FilterOptions: FC<FilterOptionsProps> = ({ 
-  onFilter, 
-  availableTags = [], 
-  sortOptions = defaultSortOptions,
+  initialTags,
+  onFilterChange,
   className 
 }) => {
-  const [selectedTag, setSelectedTag] = useState<string>('');
-  const [sortOption, setSortOption] = useState<string>('');
-
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setSelectedTag(e.target.value);
-    onFilter(e.target.value, sortOption);
-  };
-
-  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>): void => {
-    setSortOption(e.target.value);
-    onFilter(selectedTag, e.target.value);
-  };
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className={`flex flex-col md:flex-row gap-4 ${className ?? ''}`}
-    >
-      <Select
-        value={selectedTag}
-        onChange={handleSelectChange}
-        className="flex-1 border border-gray-300 p-2 rounded focus:ring-2 ring-offset-2 ring-primary/20"
+    <div className={`flex flex-wrap gap-2 ${className}`}>
+      <button
+        onClick={() => onFilterChange('')}
+        className="px-3 py-1 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
       >
-        <SelectItem value="">All Tags</SelectItem>
-        {availableTags.map((tag) => (
-          <SelectItem key={tag} value={tag}>
-            {tag}
-          </SelectItem>
-        ))}
-      </Select>
-      
-      <Select
-        value={sortOption}
-        onChange={handleSortChange}
-        className="flex-1 border border-gray-300 p-2 rounded focus:ring-2 ring-offset-2 ring-primary/20"
-      >
-        {sortOptions.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </Select>
-    </motion.div>
+        All
+      </button>
+      {initialTags.map((tag) => (
+        <button
+          key={tag}
+          onClick={() => onFilterChange(tag)}
+          className="px-3 py-1 rounded-full bg-secondary/10 text-secondary hover:bg-secondary/20 transition-colors"
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
   );
 };
 

@@ -1,5 +1,7 @@
+'use client';
+
 import { FC } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from 'shadcn-ui';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { Star, Bookmark, Share2, ThumbsUp, MessageSquare } from 'lucide-react';
 import GitHubStarGraph from './GitHubStarGraph';
@@ -10,6 +12,7 @@ import { Resource, ReviewType, RecommendationType } from '../types';
 interface ResourceCardProps extends Partial<Resource> {
   onRatingChange?: (rating: number) => void;
   onBookmarkChange?: (isBookmarked: boolean) => void;
+  onClick?: () => void;
 }
 
 const ResourceCard: FC<ResourceCardProps> = ({ 
@@ -19,7 +22,8 @@ const ResourceCard: FC<ResourceCardProps> = ({
   repo, 
   tags = [],
   onRatingChange,
-  onBookmarkChange 
+  onBookmarkChange,
+  onClick 
 }) => {
   const [rating, setRating] = useState<number>(0);
   const [reviews, setReviews] = useState<ReviewType[]>([]);
@@ -39,10 +43,11 @@ const ResourceCard: FC<ResourceCardProps> = ({
 
   return (
     <motion.div
+      onClick={onClick}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="fade-in"
+      className="fade-in cursor-pointer"
     >
       <Card className="resource-card">
         <CardHeader className="space-y-2">

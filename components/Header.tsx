@@ -1,5 +1,7 @@
+"use client"
+
 import { FC, useState, useEffect } from 'react';
-import { Navbar, NavItem, Button } from 'shadcn-ui';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Menu, X, Book, Search, Sun, Moon, Github } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
