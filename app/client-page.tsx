@@ -7,7 +7,7 @@ import ResourceForm from '@/components/ResourceForm';
 import StarHistoryGraph from '@/components/StarHistoryGraph';
 import StarCountDisplay from '@/components/StarCountDisplay';
 import NetworkGraph from '@/components/NetworkGraph';
-import FilterOptions from '@/components/FilterOptions';
+import ResourceTable from '@/components/ResourceTable';
 import { Resource } from '@/types';
 import Loading from './loading';
 
@@ -90,18 +90,7 @@ function ResourceList({ initialResources, initialTags }: Props) {
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <FilterOptions onFilterChange={handleFilterChange} initialTags={initialTags} />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <AnimatePresence>
-                {filteredResources.map((resource) => (
-                  <ResourceCard
-                    key={resource.id || resource.url}
-                    {...resource}
-                    onClick={() => handleResourceClick(resource)}
-                  />
-                ))}
-              </AnimatePresence>
-            </div>
+            <ResourceTable resources={filteredResources} />
           </div>
           <div className="space-y-8">
             <ResourceForm onAddResource={handleAddResource} initialTags={initialTags} />

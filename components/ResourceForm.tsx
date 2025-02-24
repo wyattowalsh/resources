@@ -151,6 +151,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={handleInputChange}
             placeholder="Resource Title"
             className="pl-10"
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
           <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
         </div>
@@ -164,6 +165,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={handleInputChange}
             placeholder="Resource URL"
             className="pl-10"
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
           <Link className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
         </div>
@@ -177,6 +179,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={handleInputChange}
             placeholder="Image URL (optional)"
             className="pl-10"
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
           <ImageIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
         </div>
@@ -190,6 +193,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={handleInputChange}
             placeholder="Tag"
             className="pl-10"
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
           <Hash className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
         </div>
@@ -201,6 +205,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={(e: ChangeEvent<HTMLInputElement>) => setNewTag(e.target.value)}
             placeholder="Or create a new tag"
             className="pl-10"
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
           <Plus className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
         </div>
@@ -214,6 +219,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={(e: ChangeEvent<HTMLInputElement>) => setRelationships(e.target.value.split(',').map((rel) => rel.trim()))}
             placeholder="Related Resources (comma-separated)"
             className="pl-10"
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
           <GitFork className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
         </div>
@@ -226,6 +232,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={handleInputChange}
             className="min-h-[100px]"
             placeholder="Resource description..."
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
           {errors.description && (
             <span className="text-sm text-red-500">{errors.description}</span>
@@ -240,6 +247,7 @@ const ResourceForm: FC<ResourceFormProps> = ({
             onChange={handleInputChange}
             className="min-h-[100px]"
             placeholder="Additional notes..."
+            style={{ borderColor: 'var(--pantone-classic-blue)' }}
           />
         </div>
 
@@ -251,12 +259,13 @@ const ResourceForm: FC<ResourceFormProps> = ({
               accept=".json"
               onChange={handleJsonUpload}
               className="pl-10"
+              style={{ borderColor: 'var(--pantone-classic-blue)' }}
             />
             <Upload className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
           </div>
         </div>
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" style={{ backgroundColor: 'var(--pantone-classic-blue)' }}>
           Add Resource
         </Button>
       </div>

@@ -14,6 +14,9 @@ h1 {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--pantone-classic-blue), var(--pantone-living-coral));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 h2 {
@@ -39,6 +42,161 @@ p {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   overflow: hidden;
+  background: var(--surface);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
+.card a {
+  color: var(--pantone-classic-blue);
+  text-decoration: none;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+/* Additional styles for enhanced design */
+
+/* Typography */
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+}
+
+/* Buttons */
+.button {
+  background-color: var(--pantone-classic-blue);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: var(--pantone-living-coral);
+}
+
+/* Links */
+a {
+  color: var(--pantone-classic-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Advanced design principles for animations and transitions */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out;
+}
+
+.slide-out {
+  animation: slideOut 0.5s ease-in-out;
+}
+
+/* Custom styles for GitHubStarGraph and GitHubStarCount components */
+.github-star-graph {
+  margin-top: 1rem;
+}
+
+.github-star-count {
+  margin-top: 1rem;
+}
+
+/* Custom styles for ResourceForm component */
+.resource-form {
+  margin-top: 2rem;
+}
+
+.resource-form input,
+.resource-form select,
+.resource-form button {
+  margin-bottom: 1rem;
+}
+
+/* Custom styles for StarHistoryGraph component */
+.star-history-graph {
+  margin-top: 2rem;
+}
+
+/* Custom styles for StarCountDisplay component */
+.star-count-display {
+  margin-top: 2rem;
+}
+
+/* Custom styles for new components and pages */
+.container {
+  padding: 2rem;
+}
+
+.grid {
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .card-header {
@@ -59,38 +217,6 @@ p {
   text-decoration: underline;
 }
 
-/* Additional styles for enhanced design */
-
-/* Typography */
-body {
-  font-family: 'Inter', sans-serif;
-  color: #333;
-}
-
-/* Buttons */
-.button {
-  background-color: #0070f3;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.3s;
-}
-
-.button:hover {
-  background-color: #005bb5;
-}
-
-/* Links */
-a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Animations */
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -98,8 +224,146 @@ a:hover {
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom styles for AccessibilityEnhancements component */
+.accessibility-enhancements {
+  margin-top: 2rem;
+}
+
+/* Custom styles for AddResourceForm component */
+.add-resource-form {
+  margin-top: 2rem;
+}
+
+/* Custom styles for FilterOptions component */
+.filter-options {
+  margin-top: 2rem;
+}
+
+/* Custom styles for Footer component */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+/* Custom styles for GitHubStarCount component */
+.github-star-count {
+  margin-top: 2rem;
+}
+
+/* Custom styles for GitHubStarGraph component */
+.github-star-graph {
+  margin-top: 2rem;
+}
+
+/* Custom styles for Header component */
+.header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+/* Custom styles for InfiniteScroll component */
+.infinite-scroll {
+  margin-top: 2rem;
+}
+
+/* Custom styles for Pagination component */
+.pagination {
+  margin-top: 2rem;
+}
+
+/* Custom styles for PerformanceOptimizations component */
+.performance-optimizations {
+  margin-top: 2rem;
+}
+
+/* Custom styles for ResourceCard component */
+.resource-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.resource-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Custom styles for ResourceForm component */
+.resource-form {
+  margin-top: 2rem;
+}
+
+/* Custom styles for SearchBar component */
+.search-bar {
+  margin-top: 2rem;
+}
+
+/* Form elements */
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--pantone-classic-blue);
+  box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --surface: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+  }
+  
+  .card {
+    background: var(--surface);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  input, select, textarea {
+    background-color: var(--surface);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
   }
 }
