@@ -2,21 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  typescript: {
+    ignoreBuildErrors: false,
+  },
   experimental: {
-    appDir: true,
+    optimizePackageImports: ['@radix-ui/react-slot', 'lucide-react'],
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
   },
-  images: {
-    domains: ['example.com'],
-  },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/home',
-        permanent: true,
-      },
-    ];
-  },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
