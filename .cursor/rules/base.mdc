@@ -1,0 +1,104 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+description: Core project standards and development guidelines for the Resource Collection project
+globs: app/**/*.ts, app/**/*.tsx, components/**/*.ts, components/**/*.tsx, lib/**/*.ts, lib/**/*.tsx, scripts/**/*.ts
+
+## Project Overview
+This project is a beautifully stylized collection of resources featuring GitHub star tracking components and documentation.
+See @file README.md for detailed project information.
+
+## Core Technologies
+- Next.js 15.0.0 with App Router (@file next.config.js)
+- TypeScript 5.3.3 (@file tsconfig.json)
+- TailwindCSS 3.4.1 (@file tailwind.config.js)
+- React 18.2.0 (@file package.json)
+
+## File Structure
+1. `app/` - Next.js app router pages and layouts (@file app/layout.tsx)
+2. `components/` - Reusable React components (@file components/GitHubStarCount.tsx)
+3. `lib/` - Utility functions and shared logic (@file lib/utils.ts)
+4. `styles/` - Global styles and Tailwind configurations (@file styles/globals.css)
+5. `data/` - Static and dynamic data files (@file data/star-data.json)
+6. `scripts/` - Build and data update scripts (@file scripts/github_star_data.py)
+
+## TypeScript Standards
+1. Enable strict mode in @file tsconfig.json:
+   ```json
+   {
+     "compilerOptions": {
+       "strict": true
+     }
+   }
+   ```
+2. Use explicit type annotations for function parameters
+3. Use interfaces for object types with proper JSDoc comments
+4. Use React.FC with explicit prop interfaces
+
+## Code Organization
+1. File Naming:
+   - Components: PascalCase.tsx (e.g., GitHubStarCount.tsx)
+   - Utilities: camelCase.ts (e.g., formatDate.ts)
+   - Constants: SCREAMING_SNAKE_CASE (e.g., API_ENDPOINTS.ts)
+2. Component Structure:
+   - One component per file
+   - Props interface above component
+   - Exports at bottom of file
+
+## Performance Guidelines
+1. Data Fetching:
+   - Use React Suspense boundaries
+   - Implement stale-while-revalidate
+   - Cache responses appropriately
+2. Image Optimization:
+   - Use next/image with proper sizes
+   - Implement blur placeholders
+   - Optimize loading priority
+
+## Error Handling
+1. Error Boundaries:
+   - Implement at route level
+   - Add component-level boundaries
+   - Log errors to monitoring service
+2. API Errors:
+   - Use typed error responses
+   - Implement retry logic
+   - Show user-friendly messages
+
+## Documentation
+1. JSDoc Standards:
+   ```typescript
+   /**
+    * @param {string} repo - GitHub repository in owner/name format
+    * @returns {Promise<number>} Current star count
+    * @throws {APIError} When GitHub API fails
+    */
+   ```
+2. Component Documentation:
+   - Document all props
+   - Include usage examples
+   - Note performance considerations
+
+## Git Workflow
+1. Commit Messages:
+   ```
+   feat(stars): add star history graph
+   fix(api): handle rate limiting
+   docs(readme): update installation steps
+   ```
+2. PR Guidelines:
+   - Include test coverage
+   - Update documentation
+   - Add migration steps if needed
+
+## Build and Deployment
+1. Pre-deployment Checklist:
+   - Run full test suite
+   - Check bundle size
+   - Verify API endpoints
+2. Environment Setup:
+   - Use proper NODE_ENV
+   - Configure error monitoring
+   - Set up performance tracking 

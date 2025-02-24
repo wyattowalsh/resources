@@ -1,0 +1,249 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+description: Next.js specific patterns and best practices for the Resource Collection project
+globs: app/**/*.ts, app/**/*.tsx, pages/api/**/*.ts, middleware.ts
+
+## App Router Guidelines
+See @file app/layout.tsx and @file app/page.tsx
+
+1. Page Structure:
+   ```typescript
+   // app/page.tsx
+   export const metadata = {
+     title: 'Resource Collection',
+     description: 'A beautifully stylized collection of resources'
+   };
+
+   export default async function Page() {
+     const data = await getData();
+     return <ClientPage initialData={data} />;
+   }
+   ```
+
+2. Layout Organization:
+   ```typescript
+   // app/layout.tsx
+   import { Inter } from 'next/font/google';
+   const inter = Inter({ subsets: ['latin'] });
+
+   export default function RootLayout({ children }) {
+     return (
+       <html lang="en" className={inter.className}>
+         <body>{children}</body>
+       </html>
+     );
+   }
+   ```
+
+---
+
+## Data Fetching Patterns
+See @file lib/github.ts
+
+1. Server Components:
+   ```typescript
+   // Revalidate every hour
+   async function fetchStars(repo: string) {
+     return fetch(`https://api.github.com/repos/${repo}`, {
+       next: { revalidate: 3600 }
+     }).then(res => res.json());
+   }
+   ```
+
+2. Client Components:
+   ```typescript
+   'use client';
+   
+   function useStarHistory(repo: string) {
+     return useSWR(`/api/stars/${repo}`, fetcher, {
+       refreshInterval: 3600000
+     });
+   }
+   ```
+
+---
+
+## Route Organization
+1. Route Groups:
+   ```
+   app/
+   ├── (auth)/
+   │   ├── login/
+   │   └── register/
+   ├── (main)/
+   │   ├── dashboard/
+   │   └── profile/
+   └── layout.tsx
+   ```
+
+2. Loading States:
+   ```typescript
+   // app/loading.tsx
+   export default function Loading() {
+     return <LoadingSpinner className="m-4" />;
+   }
+   ```
+
+---
+
+## Server Components
+1. Data Fetching:
+   ```typescript
+   // app/repo/[owner]/[name]/page.tsx
+   export default async function RepoPage({ params }) {
+     const { owner, name } = params;
+     const repo = await fetchRepo(`${owner}/${name}`);
+     return <RepoDetails repo={repo} />;
+   }
+   ```
+
+2. Error Handling:
+   ```typescript
+   // app/error.tsx
+   'use client';
+   
+   export default function Error({
+     error,
+     reset,
+   }: {
+     error: Error;
+     reset: () => void;
+   }) {
+     return (
+       <div className="p-4">
+         <h2>Something went wrong!</h2>
+         <button onClick={reset}>Try again</button>
+       </div>
+     );
+   }
+   ```
+
+---
+
+## Client Components
+1. Interactivity:
+   ```typescript
+   'use client';
+   
+   export function StarButton({ repo }: { repo: string }) {
+     const [stars, setStars] = useState(0);
+     // Implementation
+   }
+   ```
+
+2. Event Handling:
+   ```typescript
+   'use client';
+   
+   export function SearchBar() {
+     const router = useRouter();
+     const handleSearch = (query: string) => {
+       router.push(`/search?q=${encodeURIComponent(query)}`);
+     };
+   }
+   ```
+
+---
+
+## Metadata
+See @file app/layout.tsx
+
+1. Static Metadata:
+   ```typescript
+   export const metadata = {
+     title: {
+       default: 'Resource Collection',
+       template: '%s | Resource Collection'
+     },
+     description: 'A beautifully stylized collection of resources',
+     openGraph: {
+       type: 'website',
+       locale: 'en_US'
+     }
+   };
+   ```
+
+2. Dynamic Metadata:
+   ```typescript
+   export async function generateMetadata({ params }) {
+     const repo = await fetchRepo(params.repo);
+     return {
+       title: repo.name,
+       description: repo.description
+     };
+   }
+   ```
+
+---
+
+## Image Optimization
+1. Next/Image Usage:
+   ```typescript
+   import Image from 'next/image';
+   
+   export function Avatar({ src, alt }: { src: string; alt: string }) {
+     return (
+       <Image
+         src={src}
+         alt={alt}
+         width={40}
+         height={40}
+         className="rounded-full"
+         priority={true}
+       />
+     );
+   }
+   ```
+
+---
+
+## API Routes
+See @file app/api/stars/route.ts
+
+1. Route Handlers:
+   ```typescript
+   import { NextResponse } from 'next/server';
+   
+   export async function GET(request: Request) {
+     try {
+       const { searchParams } = new URL(request.url);
+       const repo = searchParams.get('repo');
+       const data = await fetchStars(repo);
+       return NextResponse.json(data);
+     } catch (error) {
+       return NextResponse.json(
+         { error: 'Failed to fetch stars' },
+         { status: 500 }
+       );
+     }
+   }
+   ```
+
+---
+
+## Performance
+1. Dynamic Imports:
+   ```typescript
+   const Chart = dynamic(() => import('react-chartjs-2').then(mod => mod.Line), {
+     loading: () => <div>Loading chart...</div>,
+     ssr: false
+   });
+   ```
+
+2. Route Segments:
+   ```typescript
+   import { Suspense } from 'react';
+   
+   export default function Layout({ children }) {
+     return (
+       <div>
+         <Suspense fallback={<Loading />}>
+           {children}
+         </Suspense>
+       </div>
+     );
+   }
+   ``` 

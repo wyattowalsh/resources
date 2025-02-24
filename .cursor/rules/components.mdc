@@ -1,0 +1,182 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+description: Guidelines for creating and maintaining React components in the Resource Collection project
+globs: components/**/*.tsx, app/**/*.tsx, lib/components/**/*.tsx
+
+## Component Architecture
+1. Component Structure:
+   ```typescript
+   // GitHubStarCount.tsx
+   interface GitHubStarCountProps {
+     repo: string;
+     className?: string;
+   }
+   
+   export const GitHubStarCount: React.FC<GitHubStarCountProps> = ({ repo, className }) => {
+     // Implementation
+   };
+   ```
+2. Component Organization:
+   - One component per file
+   - Props interface first
+   - Hooks after interface
+   - Component implementation last
+
+## GitHub Star Components
+See @file components/GitHubStarCount.tsx and @file components/GitHubStarGraph.tsx
+
+### GitHubStarCount
+1. Data Fetching:
+   ```typescript
+   const { data, error } = await fetchStarCount(repo);
+   ```
+2. Error States:
+   ```typescript
+   if (error) return <ErrorDisplay error={error} />;
+   ```
+3. Loading States:
+   ```typescript
+   if (!data) return <StarCountSkeleton />;
+   ```
+4. Props Interface:
+   ```typescript
+   interface GitHubStarCountProps {
+     repo: string;
+     className?: string;
+     onError?: (error: Error) => void;
+   }
+   ```
+
+### GitHubStarGraph
+1. Chart Configuration:
+   ```typescript
+   const options: ChartOptions = {
+     responsive: true,
+     maintainAspectRatio: false
+   };
+   ```
+2. Data Handling:
+   ```typescript
+   const { data, labels } = formatStarHistory(starData);
+   ```
+3. Accessibility:
+   ```typescript
+   <canvas role="img" aria-label="GitHub Star History" {...props} />
+   ```
+
+## Component Best Practices
+1. Hook Usage:
+   ```typescript
+   const [state, setState] = useState<State>(initialState);
+   useEffect(() => {
+     // Cleanup function
+     return () => cleanup();
+   }, [dependencies]);
+   ```
+2. Memoization:
+   ```typescript
+   const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+   ```
+
+## Styling Guidelines
+See @file styles/globals.css and @file tailwind.config.js
+
+1. Component Styling:
+   ```tsx
+   <div className="flex items-center space-x-4 p-4 rounded-lg bg-background">
+     <Icon className="w-6 h-6 text-primary" />
+     <span className="text-sm font-medium">{children}</span>
+   </div>
+   ```
+2. Responsive Design:
+   ```tsx
+   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+   ```
+
+## State Management
+1. Local State:
+   ```typescript
+   const [isLoading, setIsLoading] = useState(false);
+   const [error, setError] = useState<Error | null>(null);
+   const [data, setData] = useState<Data | null>(null);
+   ```
+2. Error States:
+   ```typescript
+   try {
+     const result = await fetchData();
+     setData(result);
+   } catch (err) {
+     setError(err instanceof Error ? err : new Error('Unknown error'));
+   }
+   ```
+
+## Component Testing
+See @file __tests__/components/
+
+1. Unit Tests:
+   ```typescript
+   describe('GitHubStarCount', () => {
+     it('displays star count when data is loaded', () => {
+       // Test implementation
+     });
+   });
+   ```
+2. Error Tests:
+   ```typescript
+   it('displays error message on API failure', () => {
+     // Test implementation
+   });
+   ```
+
+## Performance Optimization
+1. Code Splitting:
+   ```typescript
+   const DynamicComponent = dynamic(() => import('./HeavyComponent'), {
+     loading: () => <Skeleton />
+   });
+   ```
+2. Render Optimization:
+   ```typescript
+   const MemoizedComponent = memo(Component, (prev, next) => {
+     return prev.id === next.id;
+   });
+   ```
+
+## Accessibility
+1. ARIA Attributes:
+   ```tsx
+   <button
+     aria-label="Show star history"
+     aria-expanded={isOpen}
+     onClick={toggleOpen}
+   >
+   ```
+2. Keyboard Navigation:
+   ```tsx
+   <div role="dialog" tabIndex={0} onKeyDown={handleKeyDown}>
+   ```
+
+## Documentation
+1. Component Documentation:
+   ```typescript
+   /**
+    * Displays the current star count for a GitHub repository
+    * @component
+    * @example
+    * ```tsx
+    * <GitHubStarCount repo="owner/repo" />
+    * ```
+    */
+   ```
+2. Props Documentation:
+   ```typescript
+   interface Props {
+     /** GitHub repository in owner/repo format */
+     repo: string;
+     /** Optional CSS classes */
+     className?: string;
+   }
+   ``` 

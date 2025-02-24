@@ -1,0 +1,83 @@
+---
+description: Guidelines for creating and maintaining .mdc project rule files in Cursor IDE
+globs: *.mdc
+---
+
+This .mdc file provides best practices and guidelines for composing, managing, updating, enriching, and improving other .mdc project rule files in Cursor IDE. These rules aim to ensure consistency, clarity, and effectiveness, optimizing rule files for both human and AI use.
+
+## Structure of an .mdc File
+
+An .mdc file should include:
+
+1. **Frontmatter**:  
+   - `description`: A concise summary of the rule file's purpose. Don't surround w/ quotes.
+   - `globs`: File patterns this rule applies to. a comma separated list of globs (no quotes or list brackets) on the same line as the key 
+
+2. **Rule Content**:  
+   - Organized with Markdown headings and lists for readability.  
+   - Specific, precise, and concise rules with examples where needed.  
+   - References to other files using `@file`.
+
+## File Naming Conventions
+
+- Use semantic, descriptive names that reflect the rule's purpose
+- Use kebab-case for file names (e.g., `editor-config.mdc`)
+- Avoid numeric prefixes or suffixes
+- Examples of good names:
+  - `base.mdc` - Core project standards
+  - `components.mdc` - Component guidelines
+  - `patterns.mdc` - Pattern implementation rules
+  - `tech-stack.mdc` - Technology requirements
+- Examples of names to avoid:
+  - ❌ `01-base.mdc` - Don't use numeric prefixes
+  - ❌ `Base.mdc` - Don't use PascalCase
+  - ❌ `base_rules.mdc` - Don't use snake_case
+
+## Frontmatter Requirements
+
+- **Description**: Summarize the rule file's purpose in one or two sentences, e.g., "Guidelines for managing .mdc files in Cursor IDE."  
+- **Globs**: Specify applicable file types or paths without brackets, e.g., `*.mdc` or `lib/patterns/**/*.ts`.
+
+## Rule Content Formatting
+
+- Use Markdown headings (e.g., `##`, `###`) to categorize rules.  
+- Use bullet points or numbered lists for individual rules.  
+- Use demarcators, separators, etc to well-structure rule files.
+
+## Best Practices for Writing Rules
+
+- **Be Specific**: Use precise language, e.g., "Use sentence case for rule descriptions" instead of "Write clear descriptions."  
+- **Keep Concise**: Avoid redundancy, focusing on essential points.  
+- **Prioritize**: Number rules if order matters, e.g., "1. Define frontmatter first."  
+- **Review Regularly**: Update rules to reflect project changes.  
+
+### Writing for AI Readability
+- Use natural, jargon-free language.  
+- Provide specific examples or cases.  
+- Avoid ambiguity with clear conditions and actions.  
+- Maintain consistent terminology, e.g., always use "rule" not "guideline."
+
+## Common Mistakes to Avoid
+
+| **Mistake**            | **Solution**                                      |
+|-----------------------|--------------------------------------------------|
+| Vague rules            | Use specific language, e.g., "Use H2 for sections." |
+| No examples            | Include examples for complex rules.              |
+| Outdated rules         | Review and update regularly with version control.|
+| Overly complex rules   | Keep concise, splitting into sub-rules if needed.|
+
+## Categorizing Rules
+
+- Group rules by purpose, e.g., Formatting, Best Practices, Testing.  
+- Use consistent category names, like "Rule Content Formatting," for readability.
+
+## Referencing Other Files
+
+- Use `@file` to link relevant files, e.g., `@file ../project-guidelines.md`.  
+- Ensure referenced files are current and provide useful context.
+
+## Additional Tips
+
+- Avoid overloading with unnecessary details to keep AI processing efficient.  
+- Use specific language to enhance rule applicability.  
+- Balance detail and performance, splitting large files if needed.
