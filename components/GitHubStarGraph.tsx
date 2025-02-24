@@ -1,11 +1,13 @@
 import { FC, useState, useEffect } from 'react';
 import { Dropdown, DropdownMenu, DropdownItem, DropdownTrigger } from 'shadcn-ui';
-import { Line } from 'react-chartjs-2';
 import { motion } from 'framer-motion';
 import { ComponentBaseProps } from '../types';
 import 'chart.js/auto';
 import '../styles/globals.css';
 import '../styles/custom.css';
+import { Chart, LineController, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js';
+
+Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale);
 
 interface StarData {
   date: string;
@@ -142,7 +144,7 @@ const GitHubStarGraph: FC<GitHubStarGraphProps> = ({ repo, onDataLoad, className
       ) : (
         <Dropdown open={isOpen} onOpenChange={setIsOpen}>
           <DropdownTrigger className="w-full">
-            <Line data={chartData} options={chartOptions} />
+            <canvas id="starGraph"></canvas>
           </DropdownTrigger>
           <DropdownMenu>
             {starData.map((data, index) => (
@@ -158,3 +160,14 @@ const GitHubStarGraph: FC<GitHubStarGraphProps> = ({ repo, onDataLoad, className
 };
 
 export default GitHubStarGraph;
+
+useEffect(() => {
+  if (starData.length > 0) {
+    const ctx = document.getElementById('starGraph') as HTMLCanvasElement;
+    new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: chartOptions,
+    });
+  }
+}, [starData]);

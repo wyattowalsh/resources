@@ -1,3 +1,4 @@
+'use client';
 import { Suspense, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ResourceCard from '@/components/ResourceCard';
@@ -10,8 +11,9 @@ import { Resource } from '@/types';
 import Loading from './loading';
 
 interface NetworkData {
-  nodes: { id: string }[];
+  nodes: { id: string; metadata?: { creationDate?: string; lastUpdatedDate?: string; description?: string }; category?: string; imageUrl?: string }[];
   links: { source: string; target: string }[];
+} {
 }
 
 export default function Home() {
@@ -27,8 +29,6 @@ export default function Home() {
 }
 
 function ResourceList() {
-  'use client';
-  
   const [resources, setResources] = useState<Resource[]>([]);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
   const [filteredResources, setFilteredResources] = useState<Resource[]>([]);
@@ -62,11 +62,20 @@ function ResourceList() {
   };
 
   const getNetworkData = (resources: Resource[]): NetworkData => ({
-    nodes: resources.map(r => ({ id: r.title })),
+    nodes: resources.map(r => ({
+      id: r.title,
+      metadata: {
+        creationDate: r.creationDate,
+        lastUpdatedDate: r.lastUpdatedDate,
+        description: r.description
+      },
+      category: r.tag,
+      imageUrl: r.image
+    })),
     links: resources.flatMap(resource => 
       (resource.relationships || []).map(rel => ({ 
         source: resource.title, 
-        target: rel 
+        target: rel
       }))
     )
   });
@@ -90,9 +99,9 @@ function ResourceList() {
       <ResourceForm onAddResource={handleAddResource} tags={[]} />
       <FilterOptions onFilter={handleFilterChange} />
       
-      <NetworkGraph data={getNetworkData(resources)} />
+      <NetworkGraph data={getNetworkData(resources)} filterCriteria={filterTag} />
       {selectedResource && (
-        <NetworkGraph data={getSelectedResourceNetwork(selectedResource)} />
+        <NetworkGraph data={getSelectedResourceNetwork(selectedResource)} filterCriteria={filterTag} />
       )}
 
       <AnimatePresence>
